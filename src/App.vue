@@ -14,7 +14,8 @@ export default {
   components: {
     HelloWorld,
     ContactList
-  }
+  },
+ 
 }
 </script>
 
