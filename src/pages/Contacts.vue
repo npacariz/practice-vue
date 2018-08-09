@@ -1,34 +1,24 @@
 <template>
   <div>
-     <div class="container">
-          <h2>Contacts</h2>  
-  <table class="table">
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>number</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="(contact, index) in contacts" :key='index'>
-        <td>{{contact.id}}</td>
-        <td>{{contact.name}}</td>
-        <td>{{contact.email}}</td>
-        <td>{{contact.number}}</td>
-       
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <ContactListProps :contactList = 'contacts'/>
+
+      <div v-if="this.$route.params.id">
+         <ContactDetalis :contactList = 'contacts'/> 
+      </div>
+      
   </div>
 </template>
 
 <script>
+import ContactListProps from '../components/ContactListProps.vue';
+import ContactDetalis from '../components/ContactDetalis.vue';
+
 export default {
   name:'Contacts',
-  
+  components: {
+    ContactListProps, 
+    ContactDetalis
+    },
   data() {
     return {
     contacts: [

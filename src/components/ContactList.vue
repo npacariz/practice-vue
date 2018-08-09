@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import ContactListProps from '../components/ContactListProps.vue';
 export default {
   name: 'ContactList',
   props: ['title'],

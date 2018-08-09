@@ -1,19 +1,28 @@
 <template>
   <div>
      <h1>Add-contacts</h1>
-       <form class="form-inline" action="/action_page.php">
+       <form class="form-inline" @submit.prevent>
           <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email">
+            <label for="email">id:</label>
+            <input type="text" class="form-control" v-model="newContact.id">
           </div>
+          <br>
           <div class="form-group">
-            <label for="pwd">Password:</label>
-            <input type="password" class="form-control" id="pwd">
+            <label for="pwd">Name:</label>
+            <input type="text" class="form-control" v-model="newContact.name">
           </div>
-          <div class="checkbox">
-            <label><input type="checkbox"> Remember me</label>
+            <br>
+           <div class="form-group">
+            <label for="pwd">Email:</label>
+            <input type="text" class="form-control" v-model="newContact.email">
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+            <br>
+           <div class="form-group">
+            <label for="pwd">number:</label>
+            <input type="text" class="form-control" v-model="newContact.number">
+          </div>
+            <br>
+          <button @click='addContact' type="submit" class="btn btn-default">Add Contact</button>
       </form>
   </div>
 </template>
@@ -21,7 +30,20 @@
 <script>
 export default {
 
+    data() {
+      return {
+
+        newContact: {},
+      }
+    },
+    methods: {
+      addContact() {
+        this.$emit('addConcat', this.newContact)
+    }
  
+}
+
+
 }
 </script>
 
