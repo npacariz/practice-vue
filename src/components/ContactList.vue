@@ -1,14 +1,18 @@
 <template>
   <div>
-      <h1>Contact List</h1>
+      <h1>{{title}}</h1>
       <form @submit.prevent>
-        <label>Name</label>
+        <label>Name </label>
         <input type="text" v-model='newContact.name'>
         <br>
-        <label>Email</label>
-        <input type="email" v-model='newContact.email'>
+        <br>
+        <label>Email </label>
+        <input type="email" v-model='newContact.email' >
+       <br>
         <br>
         <button @click='addContact'>Add Contact</button>
+        <br>
+        <br>
       </form>
       <table border="1">
         <thead>
@@ -18,8 +22,11 @@
         </thead>
         <tbody>
           <tr v-for="(contact, index) in contacts" :key='index'>
-            <td>
+            <td v-if="contact.name != 'John'">
                 {{ contact.name }}
+            </td>
+            <td v-else>
+              Marko
             </td>
             <td>
                 {{ contact.email }}
@@ -30,13 +37,14 @@
           </tr>
         </tbody>
       </table>
+      <button @click='callParent'>Call Parent</button>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ContactList',
-
+  props: ['title'],
   data() {
     return {
       contacts: [
@@ -61,6 +69,9 @@ export default {
 
       this.contacts.splice(indexOfContactToDelete, 1);
 
+    },
+    callParent() {
+      this.$emit('callFromChild', 'Test');
     }
   }
 }
