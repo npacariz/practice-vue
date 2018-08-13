@@ -3,7 +3,7 @@
     <ContactListProps :contactList = 'contacts'/>
 
       <div v-if="this.$route.params.id">
-         <ContactDetalis :contactList = 'contacts'/> 
+         <ContactDetalis  :contactList="contacts" @contactDeleted='deleteUser'/> 
       </div>
       
   </div>
@@ -12,6 +12,7 @@
 <script>
 import ContactListProps from '../components/ContactListProps.vue';
 import ContactDetalis from '../components/ContactDetalis.vue';
+import { contacts } from '../services/contacts'
 
 export default {
   name:'Contacts',
@@ -21,16 +22,43 @@ export default {
     },
   data() {
     return {
-    contacts: [
-         { id: 1, name: 'John Doe', email: 'johndoe@example.com', number: '555-12345' },
-         { id: 2, name: 'Pera Peric', email: 'peraperic@example.com', number: '555-54321' },
-         { id: 3, name: 'Nenad Vujicic', email: 'nenad.v@example.com', number: '555-67890' }
-       ]
+    contacts: []
+    
     }
     
-  }
+  },
 
- 
+  beforeRouteEnter(to, from, next) {
+      contacts.getAll()
+      .then(response => {
+        next( vm => {
+          vm.contacts = response.data
+        })
+       
+      }).catch((err) => console.log(err))
+  },
+
+  computed: {
+       contact() {
+       
+        let routePara = this.$route.params.id;
+        return this.contacts.find((element) => element.id == routePara)
+        }
+    },
+  methods: {
+    deleteUser(id) {
+        let index = this.contacts.findIndex(cont => cont.id === id)
+
+       return this.contacts.splice(index, 1)
+    }
+  },
+
+   computed: {
+       contact() {
+        let routePara = this.$route.params.id;
+        return this.contactList.find((element) => element.id == routePara)
+      }
+    }
 }
 </script>
 

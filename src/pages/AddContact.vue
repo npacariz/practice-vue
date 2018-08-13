@@ -2,14 +2,15 @@
   <div>
      <h1>Add-contacts</h1>
        <form class="form-inline" @submit.prevent>
-          <div class="form-group">
-            <label for="email">id:</label>
-            <input type="text" class="form-control" v-model="newContact.id">
-          </div>
           <br>
           <div class="form-group">
-            <label for="pwd">Name:</label>
-            <input type="text" class="form-control" v-model="newContact.name">
+            <label for="pwd">First name:</label>
+            <input type="text" class="form-control" v-model="newContact.first_name">
+          </div>
+             <br>
+            <div class="form-group">
+            <label for="pwd">Last name:</label>
+            <input type="text" class="form-control" v-model="newContact.last_name">
           </div>
             <br>
            <div class="form-group">
@@ -19,15 +20,16 @@
             <br>
            <div class="form-group">
             <label for="pwd">number:</label>
-            <input type="text" class="form-control" v-model="newContact.number">
+            <input type="tel" class="form-control" v-model="newContact.number">
           </div>
             <br>
-          <button @click='addContact' type="submit" class="btn btn-default">Add Contact</button>
+          <button @click='onSubmit()' type="submit" class="btn btn-default">Add Contact</button>
       </form>
   </div>
 </template>
 
 <script>
+import { contacts } from '../services/contacts'
 export default {
 
     data() {
@@ -37,11 +39,34 @@ export default {
       }
     },
     methods: {
+
+      onSubmit() {
+        this.$route.params.id ? this.edditContact() : this.addContact()
+      },
+
       addContact() {
-        this.$emit('addConcat', this.newContact)
+       contacts.postContact(this.newContact)
+       .then(response => {
+        this.$router.push('/contacts')})
+       .catch((err) => console.log(err))
+
+       },
+       edditContact() {
+        contacts.edit(this.newContact)
+       .then(response => {
+        this.$router.push('/contacts')})
+       .catch((err) => console.log(err))
+
+       }
+    },
+    created() {
+      if(this.$route.params.id){
+        console.log(this.$route.params.id)
+        contacts.get(this.$route.params.id).then(response => this.newContact = response.data).catch( erro => console.log(error))
+      }
     }
  
-}
+
 
 
 }

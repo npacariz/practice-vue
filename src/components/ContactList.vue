@@ -3,7 +3,7 @@
       <h1>{{title}}</h1>
       <form @submit.prevent>
         <label>Name </label>
-        <input type="text" v-model='newContact.name'>
+        <input type="text" v-model='newContact.first_name'>
         <br>
         <br>
         <label>Email </label>
@@ -21,20 +21,7 @@
           <th></th>
         </thead>
         <tbody>
-          <tr v-for="(contact, index) in contacts" :key='index'>
-            <td v-if="contact.name != 'John'">
-                {{ contact.name }}
-            </td>
-            <td v-else>
-              Marko
-            </td>
-            <td>
-                {{ contact.email }}
-            </td>
-            <td>
-              <button @click='deleteContact(contact)'>Delete</button>
-            </td>
-          </tr>
+         
         </tbody>
       </table>
       <button @click='callParent'>Call Parent</button>

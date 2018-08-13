@@ -4,7 +4,7 @@
         <router-link v-for="(contact, index) in contactList" :key='index'
         :to="{name: 'contact-details', params: {id: contact.id}}" class="list-group-item" exact-active-class="active">
         
-        {{contact.name}} 
+        {{contact.first_name}} 
         <br>
         </router-link >
         
