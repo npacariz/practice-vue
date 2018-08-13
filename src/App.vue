@@ -6,22 +6,17 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-import ContactList from './components/ContactList.vue'
 import NavBar from './components/NavBar.vue'
 
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
-    ContactList,
-    NavBar
+     NavBar
    
   },
   data() {
     return {
-        parentTitle: 'Contact List Parent'
 
     }
   },
@@ -39,6 +34,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
  
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
     <div>
+      <h4>Contact Detalis</h4>
        <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>email</th>
-        <th>number</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      
+        <thead>
+          <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>email</th>
+            <th>number</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
       <tr>
          <td>{{contacts.first_name}}</td>
         <td>{{contacts.last_name}}</td>
@@ -40,9 +40,10 @@ export default {
     methods: {
       deleteUser(id) {
         contacts.deleteContact(id)
-        .then((response)=> {
+        .then(()=> {
           this.$emit('contactDeleted', id )
-        }).catch((error) => console.log(error))
+          this.$router.push('/contacts')
+        })
      
       }
     },

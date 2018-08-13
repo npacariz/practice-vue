@@ -1,6 +1,6 @@
 <template>
   <div>
-     <h1>Add-contacts</h1>
+     <h1>{{title}}</h1>
        <form class="form-inline" @submit.prevent>
           <br>
           <div class="form-group">
@@ -23,7 +23,7 @@
             <input type="tel" class="form-control" v-model="newContact.number">
           </div>
             <br>
-          <button @click='onSubmit()' type="submit" class="btn btn-default">Add Contact</button>
+          <button @click='onSubmit()' type="submit" class="btn btn-default">{{buttonTitle}}</button>
       </form>
   </div>
 </template>
@@ -34,8 +34,9 @@ export default {
 
     data() {
       return {
-
         newContact: {},
+        title: 'Add Contact',
+        buttonTitle: 'Add'
       }
     },
     methods: {
@@ -46,23 +47,26 @@ export default {
 
       addContact() {
        contacts.postContact(this.newContact)
-       .then(response => {
+       .then(() => {
         this.$router.push('/contacts')})
-       .catch((err) => console.log(err))
+       
 
        },
        edditContact() {
         contacts.edit(this.newContact)
-       .then(response => {
+       .then(() => {
         this.$router.push('/contacts')})
-       .catch((err) => console.log(err))
+      
 
        }
     },
     created() {
       if(this.$route.params.id){
-        console.log(this.$route.params.id)
-        contacts.get(this.$route.params.id).then(response => this.newContact = response.data).catch( erro => console.log(error))
+        this.title = 'Edit Contact'
+        this.buttonTitle = 'Edit'
+        contacts.get(this.$route.params.id)
+        .then(response => this.newContact = response.data)
+       
       }
     }
  

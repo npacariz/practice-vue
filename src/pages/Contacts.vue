@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div id='contacts'>
     <ContactListProps :contactList = 'contacts'/>
 
-      <div v-if="this.$route.params.id">
+      <div class='contactDetalis' v-if="this.$route.params.id">
          <ContactDetalis  :contactList="contacts" @contactDeleted='deleteUser'/> 
       </div>
       
@@ -31,18 +31,16 @@ export default {
   beforeRouteEnter(to, from, next) {
       contacts.getAll()
       .then(response => {
-        next( vm => {
-          vm.contacts = response.data
+          next( vm => {
+            vm.contacts = response.data})
         })
        
-      }).catch((err) => console.log(err))
   },
 
   computed: {
        contact() {
-       
-        let routePara = this.$route.params.id;
-        return this.contacts.find((element) => element.id == routePara)
+          let routePara = this.$route.params.id;
+           return this.contacts.find((element) => element.id == routePara)
         }
     },
   methods: {
@@ -53,16 +51,19 @@ export default {
     }
   },
 
-   computed: {
-       contact() {
-        let routePara = this.$route.params.id;
-        return this.contactList.find((element) => element.id == routePara)
-      }
-    }
+  
 }
 </script>
 
 <style>
+#contacts{
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contactDetalis {
+  margin-top: 40px;
+}
 
 </style>
 
